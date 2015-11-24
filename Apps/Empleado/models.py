@@ -33,6 +33,9 @@ class Ciudad(models.Model):
     class Meta:
         verbose_name_plural = "Ciudades"
 
+    def __unicode__(self):
+        return "{0}".format(self.nombre)
+
 
 class Ubicacion(models.Model):
 
@@ -41,6 +44,9 @@ class Ubicacion(models.Model):
 
     class Meta:
         verbose_name_plural = "Ubicaciones"
+
+    def __unicode__(self):
+        return "{0} {1}, {2}".format(self.direccion, self.ciudad, self.ciudad.departamento.pais)
 
 
 class Sucursal(models.Model):
@@ -51,6 +57,9 @@ class Sucursal(models.Model):
 
     class Meta:
         verbose_name_plural = "Sucursales"
+
+    def __unicode__(self):
+        return "{0}".format(self.nombre)
 
 
 class Cargo(models.Model):
@@ -69,3 +78,9 @@ class Empleado(models.Model):
     telefono = models.IntegerField()
     cedula = models.IntegerField()
     sucursal = models.ForeignKey(Sucursal)
+
+    def __unicode__(self):
+        return "{0}".format(self.nombre)
+
+
+

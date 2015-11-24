@@ -35,3 +35,5 @@ class UbicacionAdmin(admin.ModelAdmin):
 @admin.register(Sucursal)
 class SucursalAdmin(admin.ModelAdmin):
     list_display = ['id', 'nombre', 'ubicacion']
+
+
