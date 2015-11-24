@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'gunicorn',
     'material', 'material.admin',
     'django.contrib.admin',
     'django.contrib.auth',
