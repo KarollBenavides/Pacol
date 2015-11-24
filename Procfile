@@ -1,1 +1,1 @@
-web: gunicorn Pacol.wsgi
+web: gunicorn Pacol.wsgi --log-file -
