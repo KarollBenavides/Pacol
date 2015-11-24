@@ -1,68 +1,83 @@
 from django.db import models
 
 # Create your models here.
-from Apps.Empleado.models import Empleado, Ubicacion, Pais, Departamento, Ciudad
 
+class Pais(models.Model):
 
-class Proveedor(models.Model):
-    nombre = models.CharField(max_length=50)
-    nit = models.IntegerField(unique=True)
-    telefono = models.IntegerField()
-    ubicacion = models.OneToOneField(Ubicacion)
+    nombre = models.CharField(max_length = 50)
 
     class Meta:
-        verbose_name_plural = "Proveedores"
+        verbose_name_plural = "Paises"
 
     def __unicode__(self):
         return "{0}".format(self.nombre)
 
 
-class Categoria(models.Model):
-    nombre = models.CharField(max_length=50)
+class Departamento(models.Model):
+
+    nombre = models.CharField(max_length = 50)
+    pais = models.ForeignKey(Pais)
+
+    class Meta:
+        verbose_name_plural = "Departamentos"
 
     def __unicode__(self):
         return "{0}".format(self.nombre)
 
 
-class Producto(models.Model):
-    proveedor = models.ForeignKey(Proveedor)
-    categoria = models.ForeignKey(Categoria)
-    nombre = models.CharField(max_length=50)
-    descripcion = models.CharField(max_length=80)
+class Ciudad(models.Model):
+
+    nombre = models.CharField(max_length = 50)
+    departamento = models.ForeignKey(Departamento)
+
+    class Meta:
+        verbose_name_plural = "Ciudades"
 
     def __unicode__(self):
         return "{0}".format(self.nombre)
 
 
-class Cliente(models.Model):
-    nombre = models.CharField(max_length=50)
-    cedula = models.IntegerField()
+class Ubicacion(models.Model):
+
+    direccion = models.CharField(max_length = 50)
+    ciudad = models.ForeignKey(Ciudad)
+
+    class Meta:
+        verbose_name_plural = "Ubicaciones"
+
+    def __unicode__(self):
+        return "{0} {1}, {2}".format(self.direccion, self.ciudad, self.ciudad.departamento.pais)
+
+
+class Sucursal(models.Model):
+
+    nombre = models.CharField(max_length = 50)
+    ubicacion = models.ForeignKey(Ubicacion)
     telefono = models.IntegerField()
-    direccion = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = "Sucursales"
 
     def __unicode__(self):
         return "{0}".format(self.nombre)
 
 
-class Factura(models.Model):
-    total = models.IntegerField()
-    cliente = models.ForeignKey(Cliente)
-    empleado = models.ForeignKey(Empleado)
-    producto = models.ForeignKey(Producto)
+class Cargo(models.Model):
+
+    nombre = models.CharField(max_length = 50)
+    sueldo = models.IntegerField()
 
     def __unicode__(self):
-        return "Factura No {0} a nombre de {1}".format(self.id, self.cliente.nombre)
+        return self.nombre
 
 
+class Empleado(models.Model):
 
-
-class Venta(models.Model):
-    empleado = models.ForeignKey(Empleado)
-    factura = models.ForeignKey(Factura)
+    nombre = models.CharField(max_length = 50)
+    cargo = models.ForeignKey(Cargo)
+    telefono = models.IntegerField()
+    cedula = models.IntegerField()
+    sucursal = models.ForeignKey(Sucursal)
 
     def __unicode__(self):
-        return "Venta realizada por {0}".format(self.empleado)
-
-
-
-
+        return "{0}".format(self.nombre)
