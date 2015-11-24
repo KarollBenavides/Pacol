@@ -61,7 +61,7 @@ class Venta(models.Model):
     factura = models.ForeignKey(Factura)
 
     def __unicode__(self):
-        return "{0}".format(self.nombre)
+        return "Venta realizada por {0}".format(self.empleado)
 
 
 
