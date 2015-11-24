@@ -95,7 +95,7 @@ DATABASES = {'default': dj_database_url.config(default=os.environ["DATABASE_URL"
 
 LANGUAGE_CODE = 'es-co'
 
-TIME_ZONE = 'America\Bogota'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
